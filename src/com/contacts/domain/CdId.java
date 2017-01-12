@@ -1,28 +1,30 @@
 package com.contacts.domain;
 
 /**
- * CduId entity. @author MyEclipse Persistence Tools
+ * CdId entity. @author MyEclipse Persistence Tools
  */
 
-public class CduId implements java.io.Serializable {
+public class CdId implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Company company;
 	private Department department;
-	private User user;
 
 	// Constructors
 
 	/** default constructor */
-	public CduId() {
+	public CdId() {
 	}
 
 	/** full constructor */
-	public CduId(Company company, Department department, User user) {
+	public CdId(Company company, Department department) {
 		this.company = company;
 		this.department = department;
-		this.user = user;
 	}
 
 	// Property accessors
@@ -43,22 +45,14 @@ public class CduId implements java.io.Serializable {
 		this.department = department;
 	}
 
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
 			return false;
-		if (!(other instanceof CduId))
+		if (!(other instanceof CdId))
 			return false;
-		CduId castOther = (CduId) other;
+		CdId castOther = (CdId) other;
 
 		return ((this.getCompany() == castOther.getCompany()) || (this
 				.getCompany() != null && castOther.getCompany() != null && this
@@ -66,10 +60,7 @@ public class CduId implements java.io.Serializable {
 				&& ((this.getDepartment() == castOther.getDepartment()) || (this
 						.getDepartment() != null
 						&& castOther.getDepartment() != null && this
-						.getDepartment().equals(castOther.getDepartment())))
-				&& ((this.getUser() == castOther.getUser()) || (this.getUser() != null
-						&& castOther.getUser() != null && this.getUser()
-						.equals(castOther.getUser())));
+						.getDepartment().equals(castOther.getDepartment())));
 	}
 
 	public int hashCode() {
@@ -81,8 +72,6 @@ public class CduId implements java.io.Serializable {
 				* result
 				+ (getDepartment() == null ? 0 : this.getDepartment()
 						.hashCode());
-		result = 37 * result
-				+ (getUser() == null ? 0 : this.getUser().hashCode());
 		return result;
 	}
 

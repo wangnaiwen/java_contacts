@@ -25,17 +25,17 @@
         <property name="password" type="java.lang.String">
             <column name="password" length="20" not-null="true" />
         </property>
-        <set name="cdus" inverse="true">
+        <!-- <set name="cdus" inverse="true">
             <key>
                 <column name="uid" not-null="true" />
             </key>
             <one-to-many class="com.contacts.domain.Cdu" />
-        </set>
-        <set name="companies" inverse="true">
+        </set> -->
+        <!-- <set name="companies" inverse="true">
             <key>
                 <column name="creator" />
             </key>
             <one-to-many class="com.contacts.domain.Company" />
-        </set>
+        </set> -->
     </class>
 </hibernate-mapping>

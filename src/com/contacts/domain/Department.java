@@ -1,8 +1,5 @@
 package com.contacts.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Department entity. @author MyEclipse Persistence Tools
  */
@@ -11,9 +8,12 @@ public class Department implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
-	private Set cdus = new HashSet(0);
 
 	// Constructors
 
@@ -24,12 +24,6 @@ public class Department implements java.io.Serializable {
 	/** minimal constructor */
 	public Department(String name) {
 		this.name = name;
-	}
-
-	/** full constructor */
-	public Department(String name, Set cdus) {
-		this.name = name;
-		this.cdus = cdus;
 	}
 
 	// Property accessors
@@ -49,13 +43,4 @@ public class Department implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set getCdus() {
-		return this.cdus;
-	}
-
-	public void setCdus(Set cdus) {
-		this.cdus = cdus;
-	}
-
 }

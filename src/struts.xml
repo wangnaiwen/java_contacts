@@ -3,9 +3,60 @@
 <struts>
 	<package name="struts" extends="struts-default,json-default"  namespace="/">
 		<action name="login" class="com.contacts.action.LoginAction" >
-		<result type="json">  
+		    <result type="json">  
                 <param name="root">dataMap</param>  
             </result>
+		</action>
+		<action name="register" class="com.contacts.action.RegisterAction" >
+		    <result type="json">  
+                <param name="root">dataMap</param>  
+            </result>
+		</action>
+		<action name="registerCompany" class="com.contacts.action.RegisterCompanyAction" >
+		    <result type="json">  
+                <param name="root">dataMap</param>  
+            </result>
+		</action>
+		<action name="addDepartment" class="com.contacts.action.AddDepartmentAction" >
+		    <result type="json">  
+                <param name="root">dataMap</param>  
+            </result>
+		</action>
+		<action name="insertCdu" class="com.contacts.action.InsertCduAction" >
+		    <result type="json">  
+                <param name="root">dataMap</param>  
+            </result>
+		</action>
+		<action name="selectCompanyByUser" class="com.contacts.action.SelectCompanyByUserAction" >
+		    <result type="json">  
+                <param name="root">dataMap</param>  
+            </result>
+		</action>
+		<action name="insertGroupAction" class="com.contacts.action.InsertGroupAction">
+			<result type="json">
+				<param name="root">dataMap</param>  
+			</result>
+		</action>
+		<action name="insertContactsAction" class="com.contacts.action.InsertContactsAction">
+			<result type="json">
+				<param name="root">dataMap</param>  
+			</result>
+		</action>
+		<action name="selectContactsByGroupIdAction" class="com.contacts.action.SelectContactsByGroupIdAction">
+			<result type="json">
+				<param name="root">dataMap</param>  
+			</result>
+		</action>
+		
+		<action name="selectGroupByUserIdAction" class="com.contacts.action.SelectGroupByUserIdAction">
+			<result type="json">
+				<param name="root">dataMap</param>  
+			</result>
+		</action>
+		<action name="deleteGroupByUseIdAction" class="com.contacts.action.DeleteGroupByUserIdAction">
+			<result type="json">
+				<param name="root">dataMap</param>  
+			</result>
 		</action>
 	</package>
 </struts>    

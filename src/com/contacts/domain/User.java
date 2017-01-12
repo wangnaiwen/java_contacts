@@ -1,7 +1,5 @@
 package com.contacts.domain;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * User entity. @author MyEclipse Persistence Tools
@@ -11,14 +9,16 @@ public class User implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private String phone;
 	private String phone2;
 	private String email;
 	private String password;
-	private Set cdus = new HashSet(0);
-	private Set companies = new HashSet(0);
 
 	// Constructors
 
@@ -35,14 +35,12 @@ public class User implements java.io.Serializable {
 
 	/** full constructor */
 	public User(String name, String phone, String phone2, String email,
-			String password, Set cdus, Set companies) {
+			String password) {
 		this.name = name;
 		this.phone = phone;
 		this.phone2 = phone2;
 		this.email = email;
 		this.password = password;
-		this.cdus = cdus;
-		this.companies = companies;
 	}
 
 	// Property accessors
@@ -94,21 +92,4 @@ public class User implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Set getCdus() {
-		return this.cdus;
-	}
-
-	public void setCdus(Set cdus) {
-		this.cdus = cdus;
-	}
-
-	public Set getCompanies() {
-		return this.companies;
-	}
-
-	public void setCompanies(Set companies) {
-		this.companies = companies;
-	}
-
 }

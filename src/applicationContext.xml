@@ -30,7 +30,10 @@
 				<value>com/contacts/domain/Cdu.hbm.xml</value>
 				<value>com/contacts/domain/Company.hbm.xml</value>
 				<value>com/contacts/domain/Department.hbm.xml</value>
-				<value>com/contacts/domain/User.hbm.xml</value></list>
+				<value>com/contacts/domain/User.hbm.xml</value>
+				<value>com/contacts/domain/Cd.hbm.xml</value>
+				<value>com/contacts/domain/Contacts.hbm.xml</value>
+				<value>com/contacts/domain/Grouping.hbm.xml</value></list>
 		</property>
 		
 	</bean>
@@ -39,23 +42,133 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- config the dao  -->
 	
 	<bean id="baseDAO" class="com.contacts.dao.BaseDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
-	<bean id="userDAO" class="com.contacts.dao.impl.UserDAO" parent="baseDAO">
-		
-	</bean>
+	<bean id="userDAO" class="com.contacts.dao.impl.UserDAO" parent="baseDAO"></bean>
+	<bean id="companyDAO" class="com.contacts.dao.impl.CompanyDAO" parent="baseDAO"></bean>
+	<bean id="departmentDAO" class="com.contacts.dao.impl.DepartmentDAO" parent="baseDAO"></bean>
+	<bean id="cdDAO" class="com.contacts.dao.impl.CdDAO" parent="baseDAO"></bean>
+	<bean id="cduDAO" class="com.contacts.dao.impl.CduDAO" parent="baseDAO"></bean>
+	<bean id="groupDAO" class="com.contacts.dao.impl.GroupImpl" parent="baseDAO"></bean>
+	<bean id="contactsDAO" class="com.contacts.dao.impl.ContactsImpl" parent="baseDAO"></bean>
 	
-	<bean id="loginServiceDAO" class="com.contacts.service.LoginServiceImpl">
+	<!-- config the service -->
+	<bean id="baseServiceDAO" class="com.contacts.service.dao.BaseServiceDAO">
 		<property name="userDAO" ref="userDAO"></property>
 	</bean>
+	<bean id="companyBaseServiceDAO" class="com.contacts.service.dao.CompanyBaseServiceDAO">
+		<property name="companyDAO" ref="companyDAO"></property>
+	</bean>
+	<bean id="departmentBaseServiceDAO" class="com.contacts.service.dao.DepartmentBaseServiceDAO">
+		<property name="departmentDAO" ref="departmentDAO"></property>
+	</bean>
+	<bean id="cdBaseServiceDAO" class="com.contacts.service.dao.CdBaseServiceDAO">
+		<property name="cdDAO" ref="cdDAO"></property>
+	</bean>
+	<bean id="cduBaseServiceDAO" class="com.contacts.service.dao.CduBaseServiceDAO">
+		<property name="cduDAO" ref="cduDAO"></property>
+	</bean>
+	<bean id="groupBaseServiceDAO" class="com.contacts.service.dao.GroupBaseServiceDAO">
+		<property name="groupDAO" ref="groupDAO"></property>
+	</bean>
+	<bean id="contactsBaseServiceDAO" class="com.contacts.service.dao.ContactsBaseServiceDAO">
+		<property name="contactsDAO" ref="contactsDAO"></property>
+	</bean>
+	<!-- user service -->
+	<bean id="loginServiceDAO" class="com.contacts.service.LoginServiceImpl" parent="baseServiceDAO"></bean>
+	<bean id="registerServiceDAO" class="com.contacts.service.RegisterServiceImpl" parent="baseServiceDAO"></bean>
+	<bean id="selectUserServiceByIdDAO" class="com.contacts.service.SelectUserByIdServiceImpl" parent="baseServiceDAO"></bean>
+	<bean id="selectUserByPhoneDAO" class="com.contacts.service.SelectUserByPhoneImpl" parent="baseServiceDAO"></bean>
 	
+	<!-- company service-->
+	<bean id="registerCompanyServiceDAO" class="com.contacts.service.RegisterCompanyServiceImpl" parent="companyBaseServiceDAO"></bean>
+	<bean id="selectCompanyByIdDAO" class="com.contacts.service.SelectCompanyByIdImpl" parent="companyBaseServiceDAO"></bean>
+	
+	<!-- department service -->
+	<bean id="addDepartmentServiceDAO" class="com.contacts.service.AddDepartmentServiceImpl" parent="departmentBaseServiceDAO"></bean>
+	<bean id="selectDepartmentByIdDAO" class="com.contacts.service.SelectDepartmentByIdImpl" parent="departmentBaseServiceDAO"></bean>
+	<bean id="selectDepartmentByNameDAO" class="com.contacts.service.SelectDepartmentByNameImpl" parent="departmentBaseServiceDAO"></bean>
+	
+	
+	<!-- cd service -->
+	<bean id="insertCdServiceDAO" class="com.contacts.service.InsertCdImpl" parent="cdBaseServiceDAO"></bean>
+	
+	<!-- cdu service -->
+	<bean id="insertCduServiceDAO" class="com.contacts.service.InsertCduServiceImpl" parent="cduBaseServiceDAO"></bean>
+	<bean id="selectCompanyByUserServiceDAO" class="com.contacts.service.SelectCompanyByUserServiceImpl" parent="cduBaseServiceDAO"></bean>
+	
+	<!-- group service -->
+	<bean id="insertGroupServiceDAO" class="com.contacts.service.InsertGroupServiceImpl" parent="groupBaseServiceDAO"></bean>
+	<bean id="selectGroupByIdServiceDAO" class="com.contacts.service.SelectGroupByIdServiceImpl" parent="groupBaseServiceDAO"></bean>
+	<bean id="selectGroupByNameServiceDAO" class="com.contacts.service.SelectGroupByNameServiceImpl" parent="groupBaseServiceDAO"></bean>
+	<bean id="selectGroupByUserIdServiceDAO" class="com.contacts.service.SelectGroupByUserIdServiceImpl" parent="groupBaseServiceDAO"></bean>
+	<bean id="deleteGroupByUserIdServiceDAO" class="com.contacts.service.DeleteGroupByUserIdServiceImpl" parent="groupBaseServiceDAO"></bean>
+	
+	<!-- contacts service -->
+	<bean id="insertContactsServiceDAO" class="com.contacts.service.InsertContactsServiceImpl" parent="contactsBaseServiceDAO"></bean>
+	<bean id="selectContactsByIdServiceDAO" class="com.contacts.service.SelectContactsByIdServiceImpl" parent="contactsBaseServiceDAO"></bean>
+	<bean id="selectContactsByPhoneServiceDAO" class="com.contacts.service.SelectContactsByPhoneServiceImpl" parent="contactsBaseServiceDAO"></bean>
+	<bean id="selectContactsByGroupIdServiceDAO" class="com.contacts.service.SelectContactsByGroupIdServiceImpl" parent="contactsBaseServiceDAO"></bean>
+	
+	<!-- config the action -->
 	<bean id="login" class="com.contacts.action.LoginAction">
 		<property name="loginServiceDAO" ref="loginServiceDAO"></property>
 	</bean>
+	<bean id="register" class="com.contacts.action.RegisterAction">
+		<property name="registerServiceDAO" ref="registerServiceDAO"></property>
+		<property name="selectUserByPhoneDAO" ref="selectUserByPhoneDAO"></property>
+	</bean>
 	
+	<bean id="registerCompany" class="com.contacts.action.RegisterCompanyAction">
+		<property name="registerCompanyServiceDAO" ref="registerCompanyServiceDAO"></property>
+		<property name="selectUserServiceByIdDAO" ref="selectUserServiceByIdDAO"></property>
+	</bean>
+	
+	<bean id="addDepartment" class="com.contacts.action.AddDepartmentAction">
+		<property name="addDepartmentServiceDAO" ref="addDepartmentServiceDAO"></property>
+		<property name="selectDepartmentByNameDAO" ref="selectDepartmentByNameDAO"></property>
+		<property name="selectCompanyByIdDAO" ref="selectCompanyByIdDAO"></property>
+		<property name="insertCdServiceDAO" ref="insertCdServiceDAO"></property>
+	</bean>
+	
+	<bean id="insertCdu" class="com.contacts.action.InsertCduAction">
+		<property name="selectUserServiceByIdDAO" ref="selectUserServiceByIdDAO"></property>
+		<property name="selectDepartmentByIdDAO" ref="selectDepartmentByIdDAO"></property>
+		<property name="selectCompanyByIdDAO" ref="selectCompanyByIdDAO"></property>
+		<property name="insertCduServiceDAO" ref="insertCduServiceDAO"></property>
+	</bean>
+	
+	<bean id="selectCompanyByUser" class="com.contacts.action.SelectCompanyByUserAction">
+		<property name="selectCompanyByUserServiceDAO" ref="selectCompanyByUserServiceDAO"></property>
+	</bean>
+	
+	<bean id="insertGroupAction" class="com.contacts.action.InsertGroupAction">
+		<property name="insertGroupServiceDAO" ref="insertGroupServiceDAO"></property>
+		<property name="selectUserServiceByIdDAO" ref="selectUserServiceByIdDAO"></property>
+	</bean>
+	
+	
+	<bean id="insertContactsAction" class="com.contacts.action.InsertContactsAction">
+		<property name="insertContactsServiceDAO" ref="insertContactsServiceDAO"></property>
+		<property name="selectGroupByIdServiceDAO" ref="selectGroupByIdServiceDAO"></property>
+	</bean>
+	
+	<bean id="selectContactsByGroupIdAction" class="com.contacts.action.SelectContactsByGroupIdAction">
+		<property name="selectContactsByGroupIdServiceDAO" ref="selectContactsByGroupIdServiceDAO"></property>
+	</bean>
+	
+	<bean id="selectGroupByUserIdAction" class="com.contacts.action.SelectGroupByUserIdAction">
+		<property name="selectContactsByGroupIdServiceDAO" ref="selectContactsByGroupIdServiceDAO"></property>
+		<property name="selectGroupByUserIdServiceDAO" ref="selectGroupByUserIdServiceDAO"></property>
+	</bean>
+	
+	<bean id="deleteGroupByUserIdAction" class="com.contacts.action.DeleteGroupByUserIdAction">
+		<property name="deleteGroupByUserIdServiceDAO" ref="deleteGroupByUserIdServiceDAO"></property>
+	</bean>
 </beans>

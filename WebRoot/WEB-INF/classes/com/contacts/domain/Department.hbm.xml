@@ -13,11 +13,17 @@
         <property name="name" type="java.lang.String">
             <column name="name" length="20" not-null="true" />
         </property>
-        <set name="cdus" inverse="true">
+        <!-- <set name="cdus" inverse="true">
             <key>
                 <column name="did" not-null="true" />
             </key>
             <one-to-many class="com.contacts.domain.Cdu" />
         </set>
+        <set name="cds" inverse="true">
+            <key>
+                <column name="did" not-null="true" />
+            </key>
+            <one-to-many class="com.contacts.domain.Cd" />
+        </set> -->
     </class>
 </hibernate-mapping>

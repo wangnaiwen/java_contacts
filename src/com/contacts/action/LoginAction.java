@@ -1,16 +1,10 @@
 package com.contacts.action;
 
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.struts2.json.annotations.JSON;
-
-import com.contacts.dao.impl.UserDAO;
 import com.contacts.domain.User;
-import com.contacts.service.LoginServiceImpl;
-import com.contacts.service.LoginServiceDAO;
-
+import com.contacts.service.dao.LoginServiceDAO;
 
 public class LoginAction {
 	private User user;
@@ -22,12 +16,12 @@ public class LoginAction {
 	public String execute() throws Exception{
 		boolean validated = false;
 		
-		User u = loginServiceDAO.login(user.getName(), user.getPassword());
+		System.out.println(user.getPhone() + ": " + user.getPassword());
+		User u = loginServiceDAO.login(user.getPhone(), user.getPassword());
 		
 		if(u != null){
 			validated = true;
 		}
-		System.out.println(user.getName()+"          "+user.getPassword());
 		dataMap = new HashMap<String, Object>();  
 		
 		if(validated){
@@ -48,8 +42,6 @@ public class LoginAction {
         return key;  
     } 
     
-    
-
 	public void setLoginServiceDAO(LoginServiceDAO loginServiceDAO) {
 		this.loginServiceDAO = loginServiceDAO;
 	}
@@ -60,7 +52,6 @@ public class LoginAction {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-	
+	}	
 	
 }

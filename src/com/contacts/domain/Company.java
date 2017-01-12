@@ -1,7 +1,5 @@
 package com.contacts.domain;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Company entity. @author MyEclipse Persistence Tools
@@ -11,12 +9,14 @@ public class Company implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private User user;
 	private String name;
 	private String updatetime;
-	private Set cdus = new HashSet(0);
-
 	// Constructors
 
 	/** default constructor */
@@ -30,11 +30,9 @@ public class Company implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Company(User user, String name, String updatetime, Set cdus) {
-		this.user = user;
+	public Company(User user, String name, String updatetime) {
 		this.name = name;
 		this.updatetime = updatetime;
-		this.cdus = cdus;
 	}
 
 	// Property accessors
@@ -55,6 +53,7 @@ public class Company implements java.io.Serializable {
 		this.user = user;
 	}
 
+	
 	public String getName() {
 		return this.name;
 	}
@@ -70,13 +69,4 @@ public class Company implements java.io.Serializable {
 	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
 	}
-
-	public Set getCdus() {
-		return this.cdus;
-	}
-
-	public void setCdus(Set cdus) {
-		this.cdus = cdus;
-	}
-
 }
